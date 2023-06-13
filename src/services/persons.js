@@ -1,7 +1,15 @@
 import axios from 'axios';
 // old base url for json server
 // const BASE_URL = 'http://localhost:3001/persons';
-const BASE_URL = 'http://localhost:3001/api/persons';
+// new base url links to back end server when running locally
+// because when we deployed the backend with the build folder of the frontend
+// they now run on the same localhost / url
+// so we can now leave out the localhost part and just put down a relative 
+// url for our base url
+// OLD BASE_URL -- USE FOR DEV SERVER THO
+// const BASE_URL = 'http://localhost:3001/api/persons';
+// BELOW ONLY WORKS ON LOCALHOST 3001 / BUILD (production) version
+const BASE_URL = '/api/persons';
 
 const getAll = () => {
     const request = axios.get(BASE_URL)
