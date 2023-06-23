@@ -111,9 +111,19 @@ const App = () => {
             }, 5000)
             setPersons(persons.map(person => person.id !== id ? person : returnedPerson))
           })
+          // code prior to bringing backend error messages to the frontend
+          // .catch(error => {
+          //   console.log(error, 'error editting person')
+          //   setMessage(`${person.name} was already removed from the database`)
+          //   setTimeout(() => {
+          //     setMessage(null)
+          //   }, 5000)
+          //   setPersons(persons.filter(person => person.id !== id))
+          // })
+          // UNFINISHED CODE - error msg doesnt display in instance of mongoose validation failure
           .catch(error => {
-            console.log(error, 'error editting person')
-            setMessage(`${person.name} was already removed from the database`)
+            console.log(error.response.data.error)
+            setMessage(error.response.data.error)
             setTimeout(() => {
               setMessage(null)
             }, 5000)
@@ -132,8 +142,6 @@ const App = () => {
       number: newNumber,
     }
 
-    newPerson.name && newPerson.number ?
-
     personServices
       .create(newPerson)
       .then(returnedPerson => {
@@ -145,11 +153,15 @@ const App = () => {
         setPersons(persons.concat(returnedPerson))
         setNewName('');
         setNewNumber('');
-    })
-
-    :
-    
-    alert('Person must contain a name and number')
+      })
+      // THIS IS HOW TO DISPLAY BACKEND ERROR MSGS ON THE FRONTEND
+      .catch(error => {
+        console.log(error.response.data.error)
+        setMessage(error.response.data.error)
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
+      })
 
   }
 
