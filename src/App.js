@@ -1,71 +1,11 @@
 import { useState, useEffect } from 'react';
 import personServices from './services/persons';
 import './index.css';
-import Counter from './Counter';
-
-const Notification = ({ message }) => {
-  if(message === null) {
-    return null
-  }
-  console.log(message, 'message')
-  return (
-    <div className='message'>
-      <h2>{message}</h2>
-    </div>
-  )
-}
-
-const Filter = ({ search, handleSearch, handleSearchChange }) => {
-  return (
-    <>
-      <h2>Search names</h2>
-      <form onSubmit={handleSearch}>
-        <input value={search} onChange={handleSearchChange} />
-        <div>
-          <button type="submit">Search</button>
-        </div>
-      </form>
-    </>
-  )
-}
-
-const AddToPhonebook = ({ newName, newNumber, handleNameChange, handleNumberChange, addPerson, edit, persons }) => {
-  const names = persons.map(person => person.name.toLowerCase())
-  const pendingPerson = persons.find(person => newName.toLowerCase() === person.name.toLowerCase())
-  return (
-    <>
-      <h2>Phonebook</h2>
-      <form onSubmit={names.includes(newName.toLowerCase()) ? () => edit(pendingPerson.id, newName) : addPerson}>
-        <div>
-          name: <input value={newName} onChange={handleNameChange} />
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={handleNumberChange} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-    </>
-  )
-}
-
-const DisplayPhonebook = ({ showAll, personsToShow, showBtn, handleDelete }) => {
-  return (
-    <>
-      <h2>Numbers</h2>
-      <ul>
-        {personsToShow.map(person => <li key={person.name}>{person.name} {person.number} <button onClick={() => handleDelete(person.id, person.name)}>Delete</button></li>)}
-      </ul>
-      <div>
-        {showAll ? 
-        <p></p>
-        :
-        <button onClick={showBtn}>Show All</button>}
-      </div>
-    </>
-  )
-}
+import Counter from './components/Counter/Counter';
+import AddToPhonebookForm from './components/AddToPhonebookForm/AddToPhonebookForm';
+import DisplayPhonebook from './components/DisplayPhonebook/DisplayPhonebook';
+import Notification from './components/Notification/Notification';
+import SearchForm from './components/SearchForm/SearchForm';
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
@@ -221,8 +161,8 @@ const App = () => {
   return (
     <div>
       <Notification message={message} />
-      <Filter search={search} handleSearch={handleSearch} handleSearchChange={handleSearchChange} />
-      <AddToPhonebook newName={newName} newNumber={newNumber} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} addPerson={addPerson} persons={persons} edit={edit}/>
+      <SearchForm search={search} handleSearch={handleSearch} handleSearchChange={handleSearchChange} />
+      <AddToPhonebookForm newName={newName} newNumber={newNumber} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} addPerson={addPerson} persons={persons} edit={edit}/>
       <DisplayPhonebook showAll={showAll} personsToShow={personsToShow} showBtn={showBtn} persons={persons} handleDelete={handleDelete} />
       <Counter />
     </div>

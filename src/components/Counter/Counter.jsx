@@ -3,9 +3,7 @@ import { useState } from 'react';
 const Counter = () => {
     const [ counter, setCounter ] = useState(0)
     const handleClick = (updatedValue) => {
-        console.log(counter, 'before')
         setCounter(updatedValue)
-        console.log(counter, 'after')
     }
     return (
         <>
