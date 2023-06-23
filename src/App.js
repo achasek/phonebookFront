@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import personServices from './services/persons';
 import './index.css';
+import Counter from './Counter';
 
 const Notification = ({ message }) => {
   if(message === null) {
@@ -80,6 +81,7 @@ const App = () => {
     personServices
       .getAll()
       // the initialPersons value in .then can be named whatever, it just represents a successful get request
+      // initialPersons would be the request.data from the getAll in persons.js
       .then(initialPersons => {
         console.log('promise fulfilled', initialPersons, 'response')
         setPersons(initialPersons)
@@ -124,10 +126,13 @@ const App = () => {
   const addPerson = (event) => {
     // prevents default form submitting, which would cause re renders and problems in react
     event.preventDefault()
+
     const newPerson = {
       name: newName,
       number: newNumber,
     }
+
+    newPerson.name && newPerson.number ?
 
     personServices
       .create(newPerson)
@@ -141,6 +146,11 @@ const App = () => {
         setNewName('');
         setNewNumber('');
     })
+
+    :
+    
+    alert('Person must contain a name and number')
+
   }
 
   const handleDelete = (id, name) => {
@@ -202,6 +212,7 @@ const App = () => {
       <Filter search={search} handleSearch={handleSearch} handleSearchChange={handleSearchChange} />
       <AddToPhonebook newName={newName} newNumber={newNumber} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} addPerson={addPerson} persons={persons} edit={edit}/>
       <DisplayPhonebook showAll={showAll} personsToShow={personsToShow} showBtn={showBtn} persons={persons} handleDelete={handleDelete} />
+      <Counter />
     </div>
   )
 }
