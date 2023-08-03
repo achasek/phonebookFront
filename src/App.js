@@ -7,6 +7,10 @@ import DisplayPhonebook from './components/DisplayPhonebook/DisplayPhonebook';
 import Notification from './components/Notification/Notification';
 import SearchForm from './components/SearchForm/SearchForm';
 
+// if you wanted to add a new feature using a separate collection of data,
+// youd import newServices from './services/newServices'
+// and set up new state for that data and useEffect and all of that for it
+
 const App = () => {
   const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('')

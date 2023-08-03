@@ -9,6 +9,11 @@ import axios from 'axios';
 // OLD BASE_URL -- USE FOR DEV SERVER THO
 // const BASE_URL = 'http://localhost:3001/api/persons';
 // BELOW ONLY WORKS ON LOCALHOST 3001 / BUILD (production) version
+// -------------------------------------
+// if you wanted to add a new feature that used a different set of data from persons
+// in a separate file '../services/newServices.js', add a new BASE_URL
+// specified in the declaration of the router in the backend
+// ex. BASE_URL = '/api/nameOfNewRouter' and create separate HTTP requests to it as needed
 const BASE_URL = '/api/persons';
 
 const getAll = () => {
